@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Query RIPE API</title>
+</head>
+<body>
+
+<form id="submitForm" action="" method="post">
+
+    {{ form.csrf_token }}
+    {{ form.ip_or_asn(id="ipOrAsnField", placeholder="Enter Network or ASN") }}
+
+    <button id="submitButton" type="submit">Submit</button>
+
+    <!-- errors -->
+    {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}</p>
+    {% endif %}
+
+      <!-- messages -->
+    {% for message in get_flashed_messages() %}
+        <p>
+            {{ message }}
+        </p>
+    {% endfor %}
+
+</form>
+
+</body>
+</html>

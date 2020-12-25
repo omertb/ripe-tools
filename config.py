@@ -5,6 +5,9 @@ import os
 class BaseConfig(object):
     DEBUG = False
     SECRET_KEY = os.environ['FLASKSECRETKEY']
+    # session headers
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
 
 
 class DevelopmentConfig(BaseConfig):
@@ -14,7 +17,4 @@ class DevelopmentConfig(BaseConfig):
 
 class ProductionConfig(BaseConfig):
     DEBUG = False
-    # session headers
-    SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = 'Lax'
     SESSION_COOKIE_SECURE = True
