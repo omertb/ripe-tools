@@ -9,13 +9,24 @@
 <div class="container">
 <div class="row">
 
-<div class="col-sm">
+<div class="col-md-3 pt-2">
 <form id="submitForm" action="" method="post">
 <div class="form-group">
     {{ form.csrf_token }}
-    {{ form.ip_or_asn(id="ipOrAsnField", class="form-control", placeholder="Enter Network or ASN") }}
+    <label for="ipOrAsnField">AS Number or Network</label>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">AS</span>
+        </div>
+    {{ form.ip_or_asn(id="ipOrAsnField", class="form-control", placeholder="Number or Subnet") }}
+        <div class="input-group-append">
+            <span class="input-group-text">/24</span>
+        </div>
+    </div>
+
 </div>
-    <button id="submitButton" class="btn btn-primary" type="submit">Submit</button>
+    <button id="submitButton" class="btn btn-primary btn-block" type="submit">Submit</button>
 
     <!-- errors -->
     {% if error %}
@@ -23,17 +34,30 @@
     {% endif %}
 
       <!-- messages -->
-    {% for message in get_flashed_messages() %}
-        <p>
-            {{ message }}
-        </p>
-    {% endfor %}
 
 </form>
 </div>
 
-    <div class="col-sm"></div>
-    <div class="col-sm"></div>
+    <div class="col-md-9">
+        <table
+                class="table table-striped"
+                data-toggle="table"
+                data-pagination="true"
+                data-search="true">
+        <thead class="thead-dark">
+        <tr>
+          <th data-sortable="true" data-field="id">Number</th>
+          <th data-field="path_date">Path Date</th>
+          <th data-field="as_path">AS Path</th>
+        </tr>
+  </thead>
+</table>
+        {% for message in get_flashed_messages() %}
+            <p>
+                {{ message }}
+            </p>
+        {% endfor %}
+    </div>
 
 </div>
 </div>
