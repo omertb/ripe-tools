@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Query RIPE API</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
+<div class="container">
+<div class="row">
 
+<div class="col-sm">
 <form id="submitForm" action="" method="post">
-
+<div class="form-group">
     {{ form.csrf_token }}
-    {{ form.ip_or_asn(id="ipOrAsnField", placeholder="Enter Network or ASN") }}
-
-    <button id="submitButton" type="submit">Submit</button>
+    {{ form.ip_or_asn(id="ipOrAsnField", class="form-control", placeholder="Enter Network or ASN") }}
+</div>
+    <button id="submitButton" class="btn btn-primary" type="submit">Submit</button>
 
     <!-- errors -->
     {% if error %}
@@ -26,6 +30,16 @@
     {% endfor %}
 
 </form>
+</div>
 
+    <div class="col-sm"></div>
+    <div class="col-sm"></div>
+
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
