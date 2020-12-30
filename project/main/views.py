@@ -1,6 +1,7 @@
-from flask import Blueprint, request, render_template, flash
+from flask import Blueprint, request, render_template, flash, jsonify
 from project.main.forms import MainForm
 from project.apicalls import *
+from project.json_functions import *
 from pprint import pprint
 
 
@@ -14,9 +15,12 @@ def main():
     if request.method == 'POST':
         if form.validate_on_submit():
             ip_or_asn = form.ip_or_asn.data
-            result = get_bgplay(ip_or_asn)
-            pprint(result)
-            flash("Result is \n{}".format(result))
+            bgplay_result = get_bgplay(ip_or_asn)
+            result = bgplay_table_source(bgplay_result)
+            #pprint(result)
+            #flash("Result is \n{}".format(result))
+            print(ip_or_asn)
+            return jsonify(result)
         else:
             print("NOT VALID!")
     return render_template('main.html', form=form, error=error)

@@ -1,1 +1,0 @@
-let $pathResultTable = $('#pathResultTable');
