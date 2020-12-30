@@ -2,7 +2,6 @@ from flask import Blueprint, request, render_template, flash, jsonify
 from project.main.forms import MainForm
 from project.apicalls import *
 from project.json_functions import *
-from pprint import pprint
 
 
 main_blueprint = Blueprint('main', __name__, template_folder='templates')
@@ -17,9 +16,6 @@ def main():
             ip_or_asn = form.ip_or_asn.data
             bgplay_result = get_bgplay(ip_or_asn)
             result = bgplay_table_source(bgplay_result)
-            #pprint(result)
-            #flash("Result is \n{}".format(result))
-            print(ip_or_asn)
             return jsonify(result)
         else:
             print("NOT VALID!")

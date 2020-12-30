@@ -9,10 +9,19 @@ def bgplay_table_source(bpgplay_result_dict):
                     if event['attrs']['path'] != previous_path:
                         path_event = {'source_id': event['attrs']['source_id'], 'change_date': event['timestamp'],
                                       'target_prefix': event['attrs']['target_prefix'], 'path_change': {}}
+                        source_ip, source_as = next((item['ip'], item['as_number']) for item in bpgplay_result_dict['data']['sources'] if item["id"] == path_event['source_id'])
+                        source_owner = next(item['owner'] for item in bpgplay_result_dict['data']['nodes'] if item['as_number'] == source_as)
+                        path_event['source_as'] = '<a href="#" data-toggle="tooltip" data-placement="top" ' \
+                                                  'data-html="true" title="<b>Owner:</b> {}<br> <b>IP:</b> {}">' \
+                                                  '{}</a>'.format(source_owner, source_ip, str(source_as))
+                        path_event['source_ip'] = source_ip
+                        path_event['source_owner'] = source_owner
                         path_event['path_change']['previous_path'] = previous_path
                         path_event['path_change']['transitioned_path'] = event['attrs']['path']
-                        path_event['path_change_str'] = "Previous: {} \n Transitioned: {}".format(" ".join(map(str, previous_path)),
-                                                                                                  " ".join(map(str, event['attrs']['path'])))
+                        path_event['path_change_str'] = '<span class="my-w100">Previous: </span><em>{}</em><br>' \
+                                                        '<span class="my-w100">Transitioned: </span>' \
+                                                        '<em>{}</em>'.format(" ".join(map(str, previous_path)),
+                                                                             " ".join(map(str, event['attrs']['path'])))
                         previous_path = event['attrs']['path']
                         path_change_list.append(path_event)
     return path_change_list

@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    $("a").tooltip({container:'body'});
+});
+
 let $pathResultTable = $('#pathResultTable');
 let resultArea = document.getElementById("resultArea")
 
@@ -21,10 +25,10 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event){
             //    }
             //},
             success: function(data) {
-                resultArea.innerHTML = JSON.stringify(data);
+                // resultArea.innerHTML = JSON.stringify(data);
                 $pathResultTable.bootstrapTable({data: data});
-                console.log("SUCCESS:");
-                console.log(data);
+                $("a").tooltip({container:'body'});
+
             },
             error: function(data) {
                 console.log("ERROR:");
@@ -32,4 +36,8 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event){
             }
         }
     );
+});
+
+$('#pathResultTable').on('all.bs.table', function(){
+    $("a").tooltip({container:'body'});
 });
