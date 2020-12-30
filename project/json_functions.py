@@ -11,6 +11,8 @@ def bgplay_table_source(bpgplay_result_dict):
                                       'target_prefix': event['attrs']['target_prefix'], 'path_change': {}}
                         path_event['path_change']['previous_path'] = previous_path
                         path_event['path_change']['transitioned_path'] = event['attrs']['path']
+                        path_event['path_change_str'] = "Previous: {} \n Transitioned: {}".format(" ".join(map(str, previous_path)),
+                                                                                                  " ".join(map(str, event['attrs']['path'])))
                         previous_path = event['attrs']['path']
                         path_change_list.append(path_event)
     return path_change_list

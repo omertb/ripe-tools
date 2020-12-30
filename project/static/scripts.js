@@ -22,6 +22,7 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event){
             //},
             success: function(data) {
                 resultArea.innerHTML = JSON.stringify(data);
+                $pathResultTable.bootstrapTable({data: data});
                 console.log("SUCCESS:");
                 console.log(data);
             },
