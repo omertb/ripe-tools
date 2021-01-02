@@ -7,10 +7,21 @@ def bgplay_table_source(bpgplay_result_dict):
                     event['attrs']['target_prefix'] == initial_state['target_prefix']:
                 if 'path' in event['attrs']:
                     if event['attrs']['path'] != previous_path:
-                        path_event = {'source_id': event['attrs']['source_id'], 'change_date': event['timestamp'],
-                                      'target_prefix': event['attrs']['target_prefix'], 'path_change': {}}
-                        source_ip, source_as = next((item['ip'], item['as_number']) for item in bpgplay_result_dict['data']['sources'] if item["id"] == path_event['source_id'])
-                        source_owner = next(item['owner'] for item in bpgplay_result_dict['data']['nodes'] if item['as_number'] == source_as)
+                        path_event = {'source_id': event['attrs']['source_id'],
+                                      'change_date': event['timestamp'],
+                                      'target_prefix': event['attrs']['target_prefix'],
+                                      'path_change': {}
+                                      }
+
+                        # find the ip address and AS number of the source
+                        # which the BGP route is taken place in the event
+                        source_ip, source_as = next((item['ip'], item['as_number'])
+                                                    for item in bpgplay_result_dict['data']['sources']
+                                                    if item["id"] == path_event['source_id'])
+                        # find the source owner as name (ISP name etc.)
+                        source_owner = next(item['owner'] for item in bpgplay_result_dict['data']['nodes']
+                                            if item['as_number'] == source_as)
+
                         path_event['source_as'] = '<a href="#" data-toggle="tooltip" data-placement="top" ' \
                                                   'data-html="true" title="<b>Owner:</b> {}<br> <b>IP:</b> {}">' \
                                                   '{}</a>'.format(source_owner, source_ip, str(source_as))
