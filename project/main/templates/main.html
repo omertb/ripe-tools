@@ -8,10 +8,11 @@
     <link href="../static/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 <div class="row">
 
-<div class="col-md-3 pt-2">
+    <div class="col-lg-1 pt-2"></div>
+<div class="col-lg-2 pt-2">
 <form id="asOrNetsubmitForm" action="" method="post">
 <div class="form-group">
     {{ form.csrf_token }}
@@ -40,13 +41,19 @@
 </form>
 </div>
 
-    <div class="col-md-9 pt-2">
+    <div class="col-lg-8 pt-2">
+
+    <div id="pathResultToolbar">
+        <h5>BGP Path Events Occurences:</h5>
+    </div>
         <table
                 id="pathResultTable"
                 class="table table-sm table-striped"
                 data-toggle="table"
                 data-pagination="true"
-                data-search="true">
+                data-search="true"
+                data-toolbar = "#pathResultToolbar"
+        >
         <thead class="thead-dark">
         <tr>
             <th data-sortable="true" data-field="source_as">Source AS</th>
@@ -66,7 +73,10 @@
         {% endfor %}
     </div>
 
+    <div class="col-lg-1 pt-2"></div>
+
 </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
