@@ -30,15 +30,20 @@
 
 </div>
     <button id="submitButton" class="btn btn-primary btn-block" type="submit">Submit</button>
+</form>
+
 
     <!-- errors -->
+    <p>
+    <div id="formErrorArea" style="color: darkred; font-size: 16px;"></div>
+    </p>
     {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}</p>
+        <p class="error"><strong>Error:</strong>
+            <span style="color: darkred; font-size: 12px;">{{ error }}</span>
+        </p>
     {% endif %}
 
       <!-- messages -->
-
-</form>
 </div>
 
     <div class="col-lg-8 pt-2">

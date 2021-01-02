@@ -4,6 +4,7 @@ $(document).ready(function () {
 
 let $pathResultTable = $('#pathResultTable');
 let resultArea = document.getElementById("resultArea")
+let formErrorArea = document.getElementById("formErrorArea")
 
 $(document).on("submit", "#asOrNetsubmitForm", function(event){
     event.preventDefault();
@@ -26,6 +27,7 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event){
             //},
             success: function(data) {
                 // resultArea.innerHTML = JSON.stringify(data);
+                formErrorArea.innerHTML = "";
                 $pathResultTable.bootstrapTable({data: data});
                 $("a").tooltip({container:'body'});
 
@@ -33,6 +35,7 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event){
             error: function(data) {
                 console.log("ERROR:");
                 console.log(data);
+                formErrorArea.innerHTML = data.responseText;
             }
         }
     );
