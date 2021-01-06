@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, flash, jsonify
+from flask import Blueprint, request, render_template, jsonify, session
 from project.main.forms import MainForm
 from project.apicalls import *
 from project.json_functions import *
@@ -33,6 +33,8 @@ main_blueprint = Blueprint('main', __name__, template_folder='templates')
 @main_blueprint.route('/', methods=['GET', 'POST'])
 def main():
     error = None
+    if request.method == "GET":
+        session['time_factor'] = 1
     form = MainForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -42,12 +44,16 @@ def main():
             elif asn_is_valid(ip_or_asn):
                 ip_or_asn = "AS" + ip_or_asn
             else:
-                print("ERROR")
-                print(ip_or_asn)
                 error = "Invalid input!"
                 return error
-            print(ip_or_asn)
-            bgplay_result = get_bgplay(ip_or_asn)
+
+            if request.form['timerange'] == "prev":
+                session['time_factor'] += 1
+            elif request.form['timerange'] == "next" and session['time_factor'] != 1:
+                session['time_factor'] -= 1
+
+            bgplay_result = get_bgplay(ip_or_asn, session['time_factor'])
             result = bgplay_table_source(bgplay_result)
             return jsonify(result)
+
     return render_template('main.html', form=form, error=error)

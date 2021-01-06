@@ -6,10 +6,9 @@ let $pathResultTable = $('#pathResultTable');
 let resultArea = document.getElementById("resultArea")
 let formErrorArea = document.getElementById("formErrorArea")
 
-$(document).on("submit", "#asOrNetsubmitForm", function(event){
+$(document).on("submit", "#asOrNetsubmitForm", function(event) {
     event.preventDefault();
     $pathResultTable.bootstrapTable("destroy");
-    let asOrIpNet = $pathResultTable.val();
     //var csrftoken = $('meta[name=csrf-token]').attr('content');
     $.ajax(
         {

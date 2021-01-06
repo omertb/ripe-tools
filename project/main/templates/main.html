@@ -27,8 +27,23 @@
             <span class="input-group-text">/24</span>
         </div>
     </div>
-
 </div>
+    <p>
+    <div class="form-group">
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="previousRadio" name="timerange" value="prev" class="custom-control-input">
+        <label class="custom-control-label" for="previousRadio">Previous 24H</label>
+    </div>
+
+    <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="nextRadio" name="timerange" value="next" class="custom-control-input" checked="checked">
+        <label class="custom-control-label" for="nextRadio">Next/Last 24H</label>
+    </div>
+
+        </div>
+    </p>
+
     <button id="submitButton" class="btn btn-primary btn-block" type="submit">Submit</button>
 </form>
 
