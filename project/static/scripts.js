@@ -5,6 +5,7 @@ $(document).ready(function () {
 let $pathResultTable = $('#pathResultTable');
 let resultArea = document.getElementById("resultArea")
 let formErrorArea = document.getElementById("formErrorArea")
+let timeRangeArea = document.getElementById("timeRangeArea")
 
 $(document).on("submit", "#asOrNetsubmitForm", function(event) {
     event.preventDefault();
@@ -27,7 +28,8 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event) {
             success: function(data) {
                 // resultArea.innerHTML = JSON.stringify(data);
                 formErrorArea.innerHTML = "";
-                $pathResultTable.bootstrapTable({data: data});
+                timeRangeArea.innerHTML = '<span class="my-w150">Query Start Time: </span>' + data.query_starttime + '<br><span class="my-w150">Query End Time: </span>' + data.query_endtime;
+                $pathResultTable.bootstrapTable({data: data.result_table});
                 $("a").tooltip({container:'body'});
 
             },

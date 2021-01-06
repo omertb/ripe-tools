@@ -53,7 +53,12 @@ def main():
                 session['time_factor'] -= 1
 
             bgplay_result = get_bgplay(ip_or_asn, session['time_factor'])
-            result = bgplay_table_source(bgplay_result)
+            result_list = bgplay_table_source(bgplay_result)
+            result = {
+                'query_endtime': bgplay_result['data']['query_endtime'],
+                'query_starttime': bgplay_result['data']['query_starttime'],
+                'result_table': result_list
+            }
             return jsonify(result)
 
     return render_template('main.html', form=form, error=error)
