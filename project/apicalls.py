@@ -10,3 +10,9 @@ def get_bgplay(ip_or_asn, time_factor):
     url = f"https://stat.ripe.net/data/bgplay/data.json?resource={ip_or_asn}&starttime={start_time}&endtime={end_time}"
     response = requests.request("GET", url)
     return json.loads(response.text)
+
+
+def get_lg(ip_or_asn):
+    url = f"https://stat.ripe.net/data/looking-glass/data.json?resource={ip_or_asn}"
+    response = requests.request("GET", url)
+    return json.loads(response.text)

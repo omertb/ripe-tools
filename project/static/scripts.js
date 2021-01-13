@@ -13,7 +13,7 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event) {
     //var csrftoken = $('meta[name=csrf-token]').attr('content');
     $.ajax(
         {
-            url: "/",
+            url: "/bgplay",
             type: "POST",
             data: new FormData(this),
             dataType: "json",
@@ -42,6 +42,47 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event) {
     );
 });
 
+let $lgResultTable = $('#lgResultTable');
+
+$(document).on("submit", "#asOrNetLgsubmitForm", function(event) {
+    event.preventDefault();
+    $lgResultTable.bootstrapTable("destroy");
+    //var csrftoken = $('meta[name=csrf-token]').attr('content');
+    $.ajax(
+        {
+            url: "/",
+            type: "POST",
+            data: new FormData(this),
+            dataType: "json",
+            contentType: false,
+            cache: false,
+            processData: false,
+            //beforeSend: function(xhr, settings) {
+            //    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+            //        xhr.setRequestHeader("X-CSRFToken", csrftoken)
+            //    }
+            //},
+            success: function(data) {
+                // resultArea.innerHTML = JSON.stringify(data);
+                formErrorArea.innerHTML = "";
+                $lgResultTable.bootstrapTable({data: data});
+                $("a").tooltip({container:'body'});
+
+            },
+            error: function(data) {
+                console.log("ERROR:");
+                console.log(data);
+                formErrorArea.innerHTML = data.responseText;
+            }
+        }
+    );
+});
+
+
 $('#pathResultTable').on('all.bs.table', function(){
+    $("a").tooltip({container:'body'});
+});
+
+$lgResultTable.on('all.bs.table', function(){
     $("a").tooltip({container:'body'});
 });

@@ -1,4 +1,17 @@
 
+def lg_table_source(lg_result_dict):
+    lg_list = []
+    for rrc in lg_result_dict['data']['rrcs']:
+        for peer in rrc['peers']:
+            peer_dict = {
+                'location': '<a href="#" data-toggle="tooltip" data-placement="top" data-html="true" '
+                            'title="<b>Peer ID/IP:</b> {}">{}</a>&nbsp'.format(peer['peer'], rrc['location']),
+                **peer
+            }
+            lg_list.append(peer_dict)
+    return lg_list
+
+
 def asn_list_into_html(as_list, bgplay_result_dict):
     result_html = ""
     for asn in as_list:

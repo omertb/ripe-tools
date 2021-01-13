@@ -31,7 +31,30 @@ main_blueprint = Blueprint('main', __name__, template_folder='templates')
 
 
 @main_blueprint.route('/', methods=['GET', 'POST'])
-def main():
+def lg():
+    error = None
+    form = MainForm(request.form)
+
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            ip_or_asn = form.ip_or_asn.data
+            if addr_is_valid(ip_or_asn):
+                ip_or_asn += "/24"
+            elif asn_is_valid(ip_or_asn):
+                ip_or_asn = "AS" + ip_or_asn
+            else:
+                error = "Invalid input!"
+                return error
+
+            lg_result = get_lg(ip_or_asn)
+            result_list = lg_table_source(lg_result)
+            return jsonify(result_list)
+
+    return render_template('lg.html', form=form, error=error)
+
+
+@main_blueprint.route('/bgplay', methods=['GET', 'POST'])
+def bgplay():
     error = None
     if request.method == "GET":
         session['time_factor'] = 1
@@ -61,4 +84,4 @@ def main():
             }
             return jsonify(result)
 
-    return render_template('main.html', form=form, error=error)
+    return render_template('bgplay.html', form=form, error=error)
