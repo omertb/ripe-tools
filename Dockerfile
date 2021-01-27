@@ -1,7 +1,7 @@
 FROM python:latest
 
 WORKDIR /project
-COPY ./ripe-tools/requirements.txt requirements.txt
+COPY ./requirements.txt requirements.txt
 RUN pip --no-cache-dir install -r requirements.txt
 
 EXPOSE 5000
