@@ -3,6 +3,8 @@ services:
   ripe-tools-flask:
     restart: always
     build: .
+    environment:
+      - FLASKSECRETKEY=16258c6bf06f5cb960caa1c351cc42aa37245fab20efe85a
     volumes:
       - .:/project
     ports:
