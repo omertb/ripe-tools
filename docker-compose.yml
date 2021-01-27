@@ -8,4 +8,4 @@ services:
     volumes:
       - .:/project
     ports:
-      - 5000:5003
+      - 5003:5000
