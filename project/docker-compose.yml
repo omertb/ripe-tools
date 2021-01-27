@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  ripe-tools-flask:
+    restart: always
+    build: .
+    volumes:
+      - .:/project
+    ports:
+      - 5000:5003
