@@ -28,7 +28,11 @@ $(document).on("submit", "#asOrNetsubmitForm", function(event) {
             success: function(data) {
                 // resultArea.innerHTML = JSON.stringify(data);
                 formErrorArea.innerHTML = "";
-                timeRangeArea.innerHTML = '<span class="my-w150">Query Start Time: </span>' + data.query_starttime + '<br><span class="my-w150">Query End Time: </span>' + data.query_endtime;
+                if (data.message) {
+                    timeRangeArea.innerHTML = data.message;
+                } else {
+                    timeRangeArea.innerHTML = '<span class="my-w150">Query Start Time: </span>' + data.query_starttime + '<br><span class="my-w150">Query End Time: </span>' + data.query_endtime;
+                }
                 $pathResultTable.bootstrapTable({data: data.result_table});
                 $("a").tooltip({container:'body'});
 
@@ -85,4 +89,11 @@ $('#pathResultTable').on('all.bs.table', function(){
 
 $lgResultTable.on('all.bs.table', function(){
     $("a").tooltip({container:'body'});
+});
+
+// wait animation with wait-modal
+$body = $("body");
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }
 });

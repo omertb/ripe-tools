@@ -3,7 +3,6 @@ import os
 
 
 class BaseConfig(object):
-    DEBUG = False
     SECRET_KEY = os.environ['FLASKSECRETKEY']
     # session headers
     SESSION_COOKIE_HTTPONLY = True

@@ -78,6 +78,7 @@ def bgplay():
             result = {
                 'query_endtime': bgplay_result['data']['query_endtime'],
                 'query_starttime': bgplay_result['data']['query_starttime'],
+                'message': ": ".join(bgplay_result['messages'][0]) if bgplay_result['messages'] else "",
                 'result_table': result_list
             }
             return jsonify(result)
