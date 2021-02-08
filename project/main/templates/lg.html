@@ -16,13 +16,10 @@
 <form id="asOrNetLgsubmitForm" action="" method="post">
 <div class="form-group">
     {{ form.csrf_token }}
-    <label for="ipOrAsnField">AS Number or Network</label>
+    <label for="ipOrAsnField">Network Address:</label>
 
     <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">AS</span>
-        </div>
-    {{ form.ip_or_asn(id="ipOrAsnField", class="form-control", placeholder="Number or Subnet") }}
+    {{ form.ip_or_asn(id="ipOrAsnField", class="form-control", placeholder="e.g. 192.168.2.0") }}
         <div class="input-group-append">
             <span class="input-group-text">/24</span>
         </div>

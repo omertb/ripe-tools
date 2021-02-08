@@ -37,16 +37,14 @@ def lg():
 
     if request.method == 'POST':
         if form.validate_on_submit():
-            ip_or_asn = form.ip_or_asn.data
-            if addr_is_valid(ip_or_asn):
-                ip_or_asn += "/24"
-            elif asn_is_valid(ip_or_asn):
-                ip_or_asn = "AS" + ip_or_asn
+            network = form.ip_or_asn.data
+            if addr_is_valid(network):
+                network += "/24"
             else:
                 error = "Invalid input!"
                 return error
 
-            lg_result = get_lg(ip_or_asn)
+            lg_result = get_lg(network)
             result_list = lg_table_source(lg_result)
             return jsonify(result_list)
 
