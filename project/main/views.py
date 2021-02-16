@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, jsonify, session
+from flask import Blueprint, request, render_template, jsonify, session, escape
 from project.main.forms import MainForm
 from project.apicalls import *
 from project.json_functions import *
@@ -37,7 +37,7 @@ def lg():
 
     if request.method == 'POST':
         if form.validate_on_submit():
-            network = form.ip_or_asn.data
+            network = escape(form.ip_or_asn.data)
             if addr_is_valid(network):
                 network += "/24"
             else:
@@ -59,7 +59,7 @@ def bgplay():
     form = MainForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            ip_or_asn = form.ip_or_asn.data
+            ip_or_asn = escape(form.ip_or_asn.data)
             if addr_is_valid(ip_or_asn):
                 ip_or_asn += "/24"
             elif asn_is_valid(ip_or_asn):
